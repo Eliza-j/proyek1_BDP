@@ -1,4 +1,5 @@
 import csv
+import os
 from datetime import datetime
 
 class Savings:
@@ -73,6 +74,8 @@ saving = Savings()
 #saving.dataOpen(fileName)
 
 def Menu():
+    clear = lambda: os.system('cls' if os.name=='nt' else 'clear')
+    clear()
     #saving = Savings()
     saving.dataOpen(fileName)
 
