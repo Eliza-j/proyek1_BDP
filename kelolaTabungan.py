@@ -1,5 +1,6 @@
 import csv
 import os
+from os.path import exists
 from datetime import datetime
 
 class Savings:
@@ -8,11 +9,14 @@ class Savings:
         self.total = 0
 
     def dataOpen(self, fileName):
-        csv_file = open(fileName,'r')
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        
-        for row in csv_reader:
-            self.entries.append(row)
+        if exists(fileName):
+            csv_file = open(fileName,'r')
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            
+            for row in csv_reader:
+                self.entries.append(row)
+        else:
+             csv_file = open(fileName,'w')
 
     def calculateTotal(self):
         for entry in self.entries:
@@ -67,7 +71,7 @@ class Savings:
     def showAll(self):
         pass
 
-fileName = 'tes.txt'
+fileName = 'savings'
 
 #while True:
 saving = Savings()
