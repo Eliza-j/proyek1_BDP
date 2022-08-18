@@ -39,29 +39,42 @@ class Savings:
             tes_writer.writerow([now.strftime("%d/%m/%Y %H:%M:%S"), amounts, details])
         except:
             print("Something's Wrong")
-        
 
+    def dataTransaksi(self):
+        self.calculateTotal()
+        print("********** PENGELOLA TABUNGAN **********")
+        print("\nTotal Tabungan: ", self.calculateTotal())
+        print("")
+        print("5 transaksi terakhir: ")
+
+
+        print("{:<25} {:<15} {:<10}".format('Tanggal','Jumlah','Keterangan'))
+
+        for entry in reversed(saving.entries[-5:]):
+            date, amount, details = entry
+            print ("{:<25} {:<15} {:<10}".format(date, amount, details))
+
+        while True:
+            back = input("Kembali? (ya)")
+            if back == "ya":
+                Menu()
+            else:
+                print("Invalid input")
+            continue
+            
 
     def showAll(self):
         pass
 
 fileName = 'tes.txt'
 
-while True:
-    saving = Savings()
+#while True:
+saving = Savings()
+#saving.dataOpen(fileName)
+
+def Menu():
+    #saving = Savings()
     saving.dataOpen(fileName)
-
-    print("********** PENGELOLA TABUNGAN **********")
-    print("\nTotal Tabungan: ", saving.calculateTotal())
-    print("")
-    print("5 transaksi terakhir: ")
-
-
-    print("{:<25} {:<15} {:<10}".format('Tanggal','Jumlah','Keterangan'))
-
-    for entry in reversed(saving.entries[-5:]):
-        date, amount, details = entry
-        print ("{:<25} {:<15} {:<10}".format(date, amount, details))
 
     print("--------------------------------------------------------")
     print("""Menu:
@@ -70,19 +83,31 @@ while True:
     3. Keluar
     """)
 
-    selectedMenu = input('Pilih menu: ')
-    if selectedMenu == '1':
-        saving.dataInput(fileName)
-        continue
-    elif selectedMenu == '2':
-        saving.showAll
-        continue
-    elif selectedMenu == '3':
-        exit()
-    else:
-        print("Invalid input \n")
+    #selectedMenu = input('Pilih menu: ')
+    while True:
+        selectedMenu = input('Pilih menu: ')
+        if selectedMenu == '1':
+            saving.dataInput(fileName)
+            #adalagi = input("Ada lagi? (ya/tidak)")
+            while True:
+                adalagi = input("Ada lagi? (ya/tidak)")
+                if adalagi == "ya":
+                    Menu()
+                elif adalagi == "tidak":
+                    exit()
+                else:
+                    print("Invalid input")
+                continue
+        elif selectedMenu == '2':
+            saving.dataTransaksi()
+            #continue
+        elif selectedMenu == '3':
+            exit()
+        else:
+            print("Invalid input \n")
         continue
 
+Menu()
 
 
 
